@@ -1,4 +1,4 @@
-# Constituent Only Filter
+# Constituents Only Filter
 
 CiviCRM Extension to allow only AGBU constituents to appear in searches and reports.
 AGBU wants only records that are flagged as a "constituent" to be included in searches and reports. 

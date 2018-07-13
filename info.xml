@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<extension key="org.agbu.civicrm.extensions.constituentonlyfilter" type="module">
-  <file>constituentonlyfilter</file>
-  <name>AGBU Constituent Only Filter</name>
+<extension key="com.dpci.constituentsonly" type="module">
+  <file>constituentsonly</file>
+  <name>AGBU Constituents Only</name>
   <description>Only AGBU constituents should appear in searches and reports.</description>
   <license>GPLv3</license>
   <maintainer>
@@ -22,6 +22,6 @@
   </compatibility>
   <comments>This is a custom extension for AGBU to only display constituents in searches and reports.</comments>
   <civix>
-    <namespace>CRM/ConstituentOnlyFilter</namespace>
+    <namespace>CRM/ConstituentsOnly</namespace>
   </civix>
 </extension>

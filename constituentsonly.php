@@ -1,21 +1,21 @@
 <?php
 
-require_once 'constituentonlyfilter.civix.php';
-use CRM_ConstituentOnlyFilter_ExtensionUtil as E;
+require_once 'constituentsonly.civix.php';
+use CRM_ConstituentsOnly_ExtensionUtil as E;
 
 /**
  * Implements hook_civicrm_queryObjects().
  */
-function constituentonlyfilter_civicrm_queryObjects(&$queryObjects, $type) {
+function constituentsonly_civicrm_queryObjects(&$queryObjects, $type) {
   if ($type == 'Contact') {
-    $queryObjects[] = new CRM_ConstituentOnlyFilter_BAO_Query();
+    $queryObjects[] = new CRM_ConstituentsOnly_BAO_Query();
   }
 }
 
 /**
  * Implements hook_civicrm_apiWrappers().
  */
-function constituentonlyfilter_civicrm_apiWrappers(&$wrappers, $apiRequest) {
+function constituentsonly_civicrm_apiWrappers(&$wrappers, $apiRequest) {
   if ($apiRequest['entity'] == 'Contact' && $apiRequest['action'] == 'getquick') {
     // Seems like the Quick Search works with the changes to the Search.
   }
@@ -25,7 +25,7 @@ function constituentonlyfilter_civicrm_apiWrappers(&$wrappers, $apiRequest) {
 /**
  * Implementation of hook_civicrm_alterReportVar().
  */
-function constituentonlyfilter_civicrm_alterReportVar($varType, &$var, &$object) {
+function constituentsonly_civicrm_alterReportVar($varType, &$var, &$object) {
   $instanceValue = $object->getVar('_instanceValues');
   if (!empty($instanceValue) &&
     in_array(
@@ -59,8 +59,8 @@ function constituentonlyfilter_civicrm_alterReportVar($varType, &$var, &$object)
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_config
  */
-function constituentonlyfilter_civicrm_config(&$config) {
-  _constituentonlyfilter_civix_civicrm_config($config);
+function constituentsonly_civicrm_config(&$config) {
+  _constituentsonly_civix_civicrm_config($config);
 }
 
 /**
@@ -68,8 +68,8 @@ function constituentonlyfilter_civicrm_config(&$config) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_xmlMenu
  */
-function constituentonlyfilter_civicrm_xmlMenu(&$files) {
-  _constituentonlyfilter_civix_civicrm_xmlMenu($files);
+function constituentsonly_civicrm_xmlMenu(&$files) {
+  _constituentsonly_civix_civicrm_xmlMenu($files);
 }
 
 /**
@@ -77,8 +77,8 @@ function constituentonlyfilter_civicrm_xmlMenu(&$files) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_install
  */
-function constituentonlyfilter_civicrm_install() {
-  _constituentonlyfilter_civix_civicrm_install();
+function constituentsonly_civicrm_install() {
+  _constituentsonly_civix_civicrm_install();
 }
 
 /**
@@ -86,8 +86,8 @@ function constituentonlyfilter_civicrm_install() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_postInstall
  */
-function constituentonlyfilter_civicrm_postInstall() {
-  _constituentonlyfilter_civix_civicrm_postInstall();
+function constituentsonly_civicrm_postInstall() {
+  _constituentsonly_civix_civicrm_postInstall();
 }
 
 /**
@@ -95,8 +95,8 @@ function constituentonlyfilter_civicrm_postInstall() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_uninstall
  */
-function constituentonlyfilter_civicrm_uninstall() {
-  _constituentonlyfilter_civix_civicrm_uninstall();
+function constituentsonly_civicrm_uninstall() {
+  _constituentsonly_civix_civicrm_uninstall();
 }
 
 /**
@@ -104,8 +104,8 @@ function constituentonlyfilter_civicrm_uninstall() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_enable
  */
-function constituentonlyfilter_civicrm_enable() {
-  _constituentonlyfilter_civix_civicrm_enable();
+function constituentsonly_civicrm_enable() {
+  _constituentsonly_civix_civicrm_enable();
 }
 
 /**
@@ -113,8 +113,8 @@ function constituentonlyfilter_civicrm_enable() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_disable
  */
-function constituentonlyfilter_civicrm_disable() {
-  _constituentonlyfilter_civix_civicrm_disable();
+function constituentsonly_civicrm_disable() {
+  _constituentsonly_civix_civicrm_disable();
 }
 
 /**
@@ -122,8 +122,8 @@ function constituentonlyfilter_civicrm_disable() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_upgrade
  */
-function constituentonlyfilter_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
-  return _constituentonlyfilter_civix_civicrm_upgrade($op, $queue);
+function constituentsonly_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
+  return _constituentsonly_civix_civicrm_upgrade($op, $queue);
 }
 
 /**
@@ -134,8 +134,8 @@ function constituentonlyfilter_civicrm_upgrade($op, CRM_Queue_Queue $queue = NUL
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_managed
  */
-function constituentonlyfilter_civicrm_managed(&$entities) {
-  _constituentonlyfilter_civix_civicrm_managed($entities);
+function constituentsonly_civicrm_managed(&$entities) {
+  _constituentsonly_civix_civicrm_managed($entities);
 }
 
 /**
@@ -147,8 +147,8 @@ function constituentonlyfilter_civicrm_managed(&$entities) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_caseTypes
  */
-function constituentonlyfilter_civicrm_caseTypes(&$caseTypes) {
-  _constituentonlyfilter_civix_civicrm_caseTypes($caseTypes);
+function constituentsonly_civicrm_caseTypes(&$caseTypes) {
+  _constituentsonly_civix_civicrm_caseTypes($caseTypes);
 }
 
 /**
@@ -161,8 +161,8 @@ function constituentonlyfilter_civicrm_caseTypes(&$caseTypes) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_angularModules
  */
-function constituentonlyfilter_civicrm_angularModules(&$angularModules) {
-  _constituentonlyfilter_civix_civicrm_angularModules($angularModules);
+function constituentsonly_civicrm_angularModules(&$angularModules) {
+  _constituentsonly_civix_civicrm_angularModules($angularModules);
 }
 
 /**
@@ -170,8 +170,8 @@ function constituentonlyfilter_civicrm_angularModules(&$angularModules) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_alterSettingsFolders
  */
-function constituentonlyfilter_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
-  _constituentonlyfilter_civix_civicrm_alterSettingsFolders($metaDataFolders);
+function constituentsonly_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
+  _constituentsonly_civix_civicrm_alterSettingsFolders($metaDataFolders);
 }
 
 // --- Functions below this ship commented out. Uncomment as required. ---
@@ -181,7 +181,7 @@ function constituentonlyfilter_civicrm_alterSettingsFolders(&$metaDataFolders = 
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_preProcess
  *
-function constituentonlyfilter_civicrm_preProcess($formName, &$form) {
+function constituentsonly_civicrm_preProcess($formName, &$form) {
 
 } // */
 
@@ -190,8 +190,8 @@ function constituentonlyfilter_civicrm_preProcess($formName, &$form) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_navigationMenu
  *
-function constituentonlyfilter_civicrm_navigationMenu(&$menu) {
-  _constituentonlyfilter_civix_insert_navigation_menu($menu, NULL, array(
+function constituentsonly_civicrm_navigationMenu(&$menu) {
+  _constituentsonly_civix_insert_navigation_menu($menu, NULL, array(
     'label' => E::ts('The Page'),
     'name' => 'the_page',
     'url' => 'civicrm/the-page',
@@ -199,5 +199,5 @@ function constituentonlyfilter_civicrm_navigationMenu(&$menu) {
     'operator' => 'OR',
     'separator' => 0,
   ));
-  _constituentonlyfilter_civix_navigationMenu($menu);
+  _constituentsonly_civix_navigationMenu($menu);
 } // */

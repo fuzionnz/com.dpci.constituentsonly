@@ -1,6 +1,6 @@
 <?php
 
-class CRM_ConstituentOnlyFilter_BAO_Query extends CRM_Contact_BAO_Query_Interface {
+class CRM_ConstituentsOnly_BAO_Query extends CRM_Contact_BAO_Query_Interface {
 
 
   /**
