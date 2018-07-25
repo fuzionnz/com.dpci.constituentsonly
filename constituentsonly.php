@@ -17,7 +17,7 @@ function constituentsonly_civicrm_queryObjects(&$queryObjects, $type) {
  */
 function constituentsonly_civicrm_apiWrappers(&$wrappers, $apiRequest) {
   if ($apiRequest['entity'] == 'Contact' && $apiRequest['action'] == 'getquick') {
-    // Seems like the Quick Search works with the changes to the Search.
+    $wrappers[] = new CRM_Utils_API_ConstituentsOnlyAPIWrapper();
   }
 }
 
