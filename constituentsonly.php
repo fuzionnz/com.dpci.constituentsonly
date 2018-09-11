@@ -4,57 +4,6 @@ require_once 'constituentsonly.civix.php';
 use CRM_ConstituentsOnly_ExtensionUtil as E;
 
 /**
- * Implements hook_civicrm_queryObjects().
- */
-function constituentsonly_civicrm_queryObjects(&$queryObjects, $type) {
-  if ($type == 'Contact') {
-    $queryObjects[] = new CRM_ConstituentsOnly_BAO_Query();
-  }
-}
-
-/**
- * Implements hook_civicrm_apiWrappers().
- */
-function constituentsonly_civicrm_apiWrappers(&$wrappers, $apiRequest) {
-  if ($apiRequest['entity'] == 'Contact' && $apiRequest['action'] == 'getquick') {
-    $wrappers[] = new CRM_Utils_API_ConstituentsOnlyAPIWrapper();
-  }
-}
-
-
-/**
- * Implementation of hook_civicrm_alterReportVar().
- */
-function constituentsonly_civicrm_alterReportVar($varType, &$var, &$object) {
-  $instanceValue = $object->getVar('_instanceValues');
-  if (!empty($instanceValue) &&
-    in_array(
-      $instanceValue['report_id'],
-      array(
-        'contact/summary',
-        'contact/detail',
-        'contact/currentEmployer',
-      )
-    )
-  ) {
-    if ($varType == 'sql') {
-      $var->_columnHeaders['civicrm_contact_do_not_trade'] = array(
-        'type' => 1,
-        'title' => 'Constituent',
-        'no_display' => TRUE,
-      );
-      $var->_select .= ' , contact_civireport.do_not_trade as civicrm_contact_do_not_trade ';
-
-      $where = $var->getVar('_where');
-      $where .= ' AND contact_civireport.do_not_trade <> 1';
-      $var->setVar('_where', $where);
-    }
-  }
-}
-
-
-
-/**
  * Implements hook_civicrm_config().
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_config
@@ -174,30 +123,38 @@ function constituentsonly_civicrm_alterSettingsFolders(&$metaDataFolders = NULL)
   _constituentsonly_civix_civicrm_alterSettingsFolders($metaDataFolders);
 }
 
-// --- Functions below this ship commented out. Uncomment as required. ---
+/**
+ * Implements hook_civicrm_queryObjects().
+ *
+ * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_queryObjects
+ */
+function constituentsonly_civicrm_queryObjects(&$queryObjects, $type) {
+  if ($type == 'Contact') {
+    $queryObjects[] = new CRM_ConstituentsOnly_BAO_Query();
+  }
+}
 
 /**
- * Implements hook_civicrm_preProcess().
+ * Implements hook_civicrm_contactListQuery().
  *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_preProcess
- *
-function constituentsonly_civicrm_preProcess($formName, &$form) {
-
-} // */
+ * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_contactListQuery
+ */
+function constituentsonly_civicrm_contactListQuery(&$query, $queryText, $context, $id) {
+  $replace = 'WHERE (cc.do_not_trade IS NULL OR cc.do_not_trade = 0) AND ';
+  $query = str_replace('WHERE ', $replace, $query);
+}
 
 /**
- * Implements hook_civicrm_navigationMenu().
+ * Implements hook_civicrm_selectWhereClause().
  *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_navigationMenu
- *
-function constituentsonly_civicrm_navigationMenu(&$menu) {
-  _constituentsonly_civix_insert_navigation_menu($menu, NULL, array(
-    'label' => E::ts('The Page'),
-    'name' => 'the_page',
-    'url' => 'civicrm/the-page',
-    'permission' => 'access CiviReport,access CiviContribute',
-    'operator' => 'OR',
-    'separator' => 0,
-  ));
-  _constituentsonly_civix_navigationMenu($menu);
-} // */
+ * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_selectWhereClause
+ */
+function constituentsonly_civicrm_selectWhereClause($entity, &$clauses) {
+  if ($entity == 'Contact') {
+    $url = CRM_Utils_Array::value('q', $_GET);
+    if (strpos($url, 'civicrm/report') === FALSE) {
+      return;
+    }
+    $clauses['do_not_trade'] = ' = 0';
+  }
+}
