@@ -12,7 +12,7 @@ class CRM_ConstituentsOnly_BAO_Query extends CRM_Contact_BAO_Query_Interface {
    * @param $query
    *
    */
-  public function select(&$query) {
+  public static function select(&$query) {
     // hack for profile search
     $url = CRM_Utils_Array::value('q', $_GET);
     if (in_array($url, ['civicrm/profile', 'civicrm/contact/search/builder'])) {
@@ -39,7 +39,7 @@ class CRM_ConstituentsOnly_BAO_Query extends CRM_Contact_BAO_Query_Interface {
    * @param $query
    *
    */
-  public function where(&$query) {
+  public static function where(&$query) {
     if (empty($query->_paramLookup['entryURL'])) {
       return;
     }
@@ -55,7 +55,7 @@ class CRM_ConstituentsOnly_BAO_Query extends CRM_Contact_BAO_Query_Interface {
    * @param $side
    *
    */
-  public function from($name, $mode, $side) {
+  public static function from($name, $mode, $side) {
   }
 
   /**
